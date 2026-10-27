@@ -1,0 +1,31 @@
+name: Pruebas
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v5
+
+      - name: Instalar Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: pip install pytest
+
+      - name: Pruebas unitarias
+        run: pytest -v test_calculadora.py
+
+      - name: Pruebas de integración
+        run: pytest -v test_integracion.py
+
+      - name: Pruebas de sistema
+        run: pytest -v test_system.py
